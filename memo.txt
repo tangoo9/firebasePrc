@@ -1,0 +1,9 @@
+[1]firebase 호스팅
+npm install -g firebase-tools
+
+
+[2] 명령어
+$firebase login //로그인
+$firebase init //파이어베이스 프로젝트 생성
+
+$firebase serve //서버실행
