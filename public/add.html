@@ -20,13 +20,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
         integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <style>
-        /* .thumbnail {
-            width: 150px;
-            height: 150px;
-            background: no-repeat center;
-        } */
-    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.0/moment.min.js"></script>
 </head>
 
 <body>
@@ -61,14 +55,16 @@
                         </ul>
                     </li>
                 </ul>
-                <!-- <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form> -->
-
             </div>
         </div>
     </nav>
+    <div class="container mt-3">
+        <input type="text" class="form-control mt-2" id="title" placeholder="상품명">
+        <textarea class="form-control mt-2" id="content" placeholder="상품을 설명해주세요" style="resize: none;"></textarea>
+        <input type="text" class="form-control mt-2" id="price" placeholder="가격">
+        <input type="file" class="form-control mt-2" id="image" placeholder="image">
+        <button class="btn btn-primary mt-3" id="send">상품 등록</button>
+    </div>
     <div class="container mt-3">
 
     </div>
@@ -86,30 +82,59 @@
         firebase.initializeApp(firebaseConfig);
 
         const container = document.querySelector('.container')
+        const ProductTitle = document.querySelector('#title')
+        const ProductPrice = document.querySelector('#price')
+        const ProductContent = document.querySelector('#content')
+        const ProductImage = document.querySelector('#image')
+
+
 
         const db = firebase.firestore()
-        db.collection('product').get().then((result) => {
-            // console.log(result)
-            result.forEach((res) => {
-                console.log(res.data())
-                let productContent =
-                    `<div class="product">
-                        <div class="flex-grow-1 p-4">
-                            <div class="thumbnail" style="background-image: url(${res.data().이미지})"></div>
-                            <h5 class="title">${res.data().제품명}</h5>
-                            <p class="content">${res.data().설명 ? res.data().설명 : ''}</p >
-                            <p class="date">${res.data().등록일}</p>
-                            <p class="price">${res.data().가격}원</p>
-                            <p class="float-end">♥0</p>
-                        </div >
-                    </div >`;
-                container.innerHTML += productContent;
-            })
+        // db.collection('product').doc('상품3').set({ 유통기한: '만료됨' })
+        // db.collection('product').add({ 유통기한: '만료됨' })
+        const storage = firebase.storage();
+
+
+        const today = moment().format('L');
+
+        const btn = document.querySelector('#send')
+        btn.addEventListener('click', () => {
+            let file = ProductImage.files[0];
+            let storageRef = storage.ref();
+            let imageUrl = storageRef.child('image/' + file.name)
+            let upload = imageUrl.put(file);
+
+            let url;
+            upload.on('state_changed',
+                // 변화시 동작하는 함수 (loading)
+                null,
+                //에러시 동작하는 함수
+                (error) => {
+                    console.error('실패사유', error);
+                },
+                // 성공시 동작하는 함수
+                () => {
+                    upload.snapshot.ref.getDownloadURL().then((url) => {
+                        console.log('업로드된 경로', url);
+                        let sendData = {
+                            "제품명": ProductTitle.value,
+                            "가격": parseInt(ProductPrice.value),
+                            "설명": ProductContent.value,
+                            "등록일": today,
+                            "이미지": url
+                        }
+
+                        db.collection('product').add(sendData).then((result) => {
+                            console.log(result)
+                            alert('상품을 성공적으로 등록했습니다.')
+                            window.location.href = "/index.html"
+                        }).catch((err) => {
+                            console.log(err)
+                        });
+                    });
+                }
+            );
         })
-
-    </script>
-    <script>
-
     </script>
 </body>
 

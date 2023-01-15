@@ -7,3 +7,61 @@ $firebase login //로그인
 $firebase init //파이어베이스 프로젝트 생성
 
 $firebase serve //서버실행
+
+
+
+[3]firebase 8
+noSQL
+=>  collection, document 구조
+
+firebase database, storage에 보면 rules 있는데 
+읽고 쓰기 접근 권한 부여가능, 
+-------------------------
+기본적으로 아래처럼 되있는데 
+allow read, write: if
+    request.time < timestamp.date(2022, 12, 17);
+
+
+if 에 true 주면 됨
+
+------
+
+//8 cdn
+<script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-storage.js"></script>
+
+
+
+// db 호출 , get Data
+firebase.initializeApp(firebaseConfig);
+
+const db = firebase.firestore()
+db.collection('product').get().then((result) => {
+    // console.log(result)
+    result.forEach((res) => {
+        console.log(res.data())
+    })
+})
+
+//db에 create하기
+db.collection('product').doc('상품3').set({ 유통기한: '만료됨' })
+db.collection('product').add({ 유통기한: '만료됨' })
+
+add로 쓸경우 doc은 자동으로 이름이 정해짐.
+
+
+//storage ,(파일저장)
+const storage = firebase.storage();
+
+let storageRef = storage.ref();
+let url = storageRef.child('image/' + 'filename')
+let upload = url.put('업로드한 파일');
+
+
+
+//회원가입하는 법
+Firebase를 이용해서 회원가입시키려면
+firebase.auth().createUserWithEmailAndPassword(abc@naver.com, 123456)
+이거 한줄이 끝입니다. 
