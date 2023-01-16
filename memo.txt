@@ -1,0 +1,7 @@
+[1]firebase 서비스
+FireStore = DB
+Function = serverless fuction , aws의 lambda 와 같다.
+Storage = 파일저장소, aws의 S3과 같다.
+hosting = 호스팅,배포
+authentication = 인증기능
+realtime database = 리얼타임 DB
