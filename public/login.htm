@@ -20,7 +20,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
         integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.0/moment.min.js"></script>
+    <style>
+        /* .thumbnail {
+            width: 150px;
+            height: 150px;
+            background: no-repeat center;
+        } */
+    </style>
 </head>
 
 <body>
@@ -35,7 +41,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="login.htm">로그인</a>
+                        <a class="nav-link active" aria-current="page" href="login.htm">로그인</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="add.html">상품등록</a>
@@ -55,18 +61,27 @@
                         </ul>
                     </li>
                 </ul>
+                <!-- <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form> -->
+
             </div>
         </div>
     </nav>
     <div class="container mt-3">
-        <input type="text" class="form-control mt-2" id="title" placeholder="상품명">
-        <textarea class="form-control mt-2" id="content" placeholder="상품을 설명해주세요" style="resize: none;"></textarea>
-        <input type="text" class="form-control mt-2" id="price" placeholder="가격">
-        <input type="file" class="form-control mt-2" id="image" placeholder="image">
-        <button class="btn btn-primary mt-3" id="send">상품 등록</button>
-    </div>
-    <div class="container mt-3">
-
+        <div class="mb-3">
+            <input type="text" class="form-control" placeholder="name" id="name">
+        </div>
+        <div class="mb-3">
+            <input type="email" class="form-control" placeholder="email" id="email">
+        </div>
+        <div class="mb-3">
+            <input type="password" class="form-control" placeholder="password" id="password">
+        </div>
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary" id="register">가입하기</button>
+        </div>
     </div>
     <script type="module">
 
@@ -82,59 +97,26 @@
         firebase.initializeApp(firebaseConfig);
 
         const container = document.querySelector('.container')
-        const ProductTitle = document.querySelector('#title')
-        const ProductPrice = document.querySelector('#price')
-        const ProductContent = document.querySelector('#content')
-        const ProductImage = document.querySelector('#image')
 
-
-
-        const db = firebase.firestore()
-        // db.collection('product').doc('상품3').set({ 유통기한: '만료됨' })
-        // db.collection('product').add({ 유통기한: '만료됨' })
+        const db = firebase.firestore();
         const storage = firebase.storage();
+        const register = document.querySelector('#register');
+        const email = document.querySelector('#email');
+        const password = document.querySelector('#password');
 
-
-        const today = moment().format('L');
-
-        const btn = document.querySelector('#send')
-        btn.addEventListener('click', () => {
-            let file = ProductImage.files[0];
-            let storageRef = storage.ref();
-            let imageUrl = storageRef.child('image/' + file.name)
-            let upload = imageUrl.put(file);
-
-            let url;
-            upload.on('state_changed',
-                // 변화시 동작하는 함수 (loading)
-                null,
-                //에러시 동작하는 함수
-                (error) => {
-                    console.error('실패사유', error);
-                },
-                // 성공시 동작하는 함수
-                () => {
-                    upload.snapshot.ref.getDownloadURL().then((url) => {
-                        console.log('업로드된 경로', url);
-                        let sendData = {
-                            "제품명": ProductTitle.value,
-                            "가격": parseInt(ProductPrice.value),
-                            "설명": ProductContent.value,
-                            "등록일": today,
-                            "이미지": url
-                        }
-
-                        db.collection('product').add(sendData).then((result) => {
-                            console.log(result)
-                            alert('상품을 성공적으로 등록했습니다.')
-                            window.location.href = "/index.html"
-                        }).catch((err) => {
-                            console.log(err)
-                        });
-                    });
-                }
-            );
+        register.addEventListener('click', () => {
+            let setEmail = email.value
+            let setPassword = password.value
+            firebase.auth().createUserWithEmailAndPassword(setEmail, setPassword)
+                .then((result) => {
+                    console.log(result)
+                    console.log(result.user)
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
         })
+
     </script>
 </body>
 
