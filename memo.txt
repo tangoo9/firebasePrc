@@ -5,3 +5,10 @@ Storage = 파일저장소, aws의 S3과 같다.
 hosting = 호스팅,배포
 authentication = 인증기능
 realtime database = 리얼타임 DB
+
+
+[2].env 설정 
+create-react-app으로 생성한 경우 
+env의 이름은 
+REACT_APP_~~~형식을 지켜야함.
+(REACT_APP_API_KEY)
