@@ -12,3 +12,20 @@ create-react-app으로 생성한 경우
 env의 이름은 
 REACT_APP_~~~형식을 지켜야함.
 (REACT_APP_API_KEY)
+
+
+[3] Rotuer
+### exact
+exact 붙여주면 정확히 일치할때 보임.
+
+예를들어 exact를 제거하고 
+path="/" , path="/about" 으로 라우터 2개 만들었으면, /about에서도 /의 router가 보임.
+=> path="/"면 exact 붙이자.
+
+### HashRouter 
+주소에 #이 붙음
+정적인 페이지에 적합
+검색엔진으로 읽지못함
+새로고침시 에러 안남
+github pages설정이 간편(배포)
+
