@@ -29,3 +29,20 @@ path="/" , path="/about" 으로 라우터 2개 만들었으면, /about에서도 
 새로고침시 에러 안남
 github pages설정이 간편(배포)
 
+
+
+[4]firebase login with Email,password
+
+4-1.
+createUserWithEmailAndPassword(email, password);
+signInWithEmailAndPassword(email, password);
+
+//공식문서, https://firebase.google.com/docs/auth/web/start?hl=ko&authuser=0
+
+4-2.setPersistence (인증상태 지속성) local, session , none이 있음
+https://firebase.google.com/docs/auth/web/auth-state-persistence?authuser=0
+
+
+4-3. onAuthStateChanged
+사용자 로그인 상태 변화를 관찰함, (로그인 로그아웃등 감지)
+https://firebase.google.com/docs/reference/js/auth.auth?authuser=0
