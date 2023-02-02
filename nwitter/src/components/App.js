@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import AppRouter from "./Router";
 import {authService} from '../fbase';
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 
 function App() {
@@ -12,13 +13,15 @@ function App() {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 
 	useEffect(()=>{
-		authService.onAuthStateChanged((user) => {
+		const auth = getAuth();
+		onAuthStateChanged(auth, (user) => {
 			if(user){
 				setIsLoggedIn(true);
 			}else{
 				setIsLoggedIn(false);
 			}
 			setInit(true);
+			console.log("유저 : ", user)
 		});
 	},[])
 	return ( 
@@ -28,5 +31,6 @@ function App() {
 		</> 
 	);
 }
+
 
 export default App;
