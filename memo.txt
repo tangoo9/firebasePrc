@@ -46,3 +46,9 @@ https://firebase.google.com/docs/auth/web/auth-state-persistence?authuser=0
 4-3. onAuthStateChanged
 사용자 로그인 상태 변화를 관찰함, (로그인 로그아웃등 감지)
 https://firebase.google.com/docs/reference/js/auth.auth?authuser=0
+
+
+4-4. GoogleAuthProvider, GithubAuthProvider
+소셜 아이디로 로그인하는 방법
+provider = new GoogleAuthProvider ... 같이 가져와주고
+signInWithPopup ... 로그인 팝업창을 띄워줄 수 있음.
