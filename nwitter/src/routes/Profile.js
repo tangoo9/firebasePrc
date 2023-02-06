@@ -1,9 +1,21 @@
 import React from 'react'
+import { useHistory } from 'react-router-dom'
 
-const profile = () => {
-  return (
-    <div>profile</div>
-  )
+import { authService } from '../fbase'
+
+const Profile = () => {
+	const history = useHistory();
+	const onLogOut = () =>{
+		authService.signOut();
+		history.push("/")
+	}
+
+	return (
+		<>
+			<div>profile</div>
+			<button onClick={onLogOut}>Log out</button>
+		</>
+	)
 }
 
-export default profile
+export default Profile

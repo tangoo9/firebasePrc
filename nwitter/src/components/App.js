@@ -24,6 +24,8 @@ function App() {
 			console.log("유저 : ", user)
 		});
 	},[])
+
+	
 	return ( 
 		< >
 			{init ? <AppRouter isLoggedIn={isLoggedIn}/> : "로딩중.."}

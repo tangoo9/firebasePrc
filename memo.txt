@@ -52,3 +52,23 @@ https://firebase.google.com/docs/reference/js/auth.auth?authuser=0
 소셜 아이디로 로그인하는 방법
 provider = new GoogleAuthProvider ... 같이 가져와주고
 signInWithPopup ... 로그인 팝업창을 띄워줄 수 있음.
+
+4-5.로그아웃 하기
+매우 심플
+import { authService } from '../fbase'
+authService.signOut();
+
+
+[5] react-router-dom
+리다이렉트 부분을 현재 버전에서는 useHistory, Redirect를 이용하여 아래와 같이 쓰는데, ("react-router-dom": "^5.3.0")
+
+.....
+<Redirect from="*" to="/"/>
+
+const history = useHistory();
+history.push("/")
+.....
+
+react-router-dom v6 이상부터는 useHistory, Redirect는 삭제됨.
+=> useNavigate(hook), Navigate(component)를 사용해야함.
+https://ui.dev/react-router-programmatically-navigate/
