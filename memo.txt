@@ -72,3 +72,26 @@ history.push("/")
 react-router-dom v6 이상부터는 useHistory, Redirect는 삭제됨.
 => useNavigate(hook), Navigate(component)를 사용해야함.
 https://ui.dev/react-router-programmatically-navigate/
+
+[6] firestore
+firebase v9 이상..
+import { getFirestore } from "firebase/firestore";
+export const dbService = getFirestore();
+
+[6-1] //collection, addDoc
+https://firebase.google.com/docs/reference/js/firestore_.md?authuser=0&hl=ko#adddoc
+import { addDoc, collection } from 'firebase/firestore';
+
+//이런형태로 코드 사용, (async await)
+const docRef = await addDoc(collection(dbService, "nweets"), {
+    nweet,
+    createdAt: Date.now(),
+    });
+console.log("Document written with ID: ", docRef.id);
+
+
+
+[bug]
+router 변경 이벤트시 화면이 실시간으로 바뀌지 않는문제 (router 5.3.0, react18간의 호환문제) 
+react-router-dom => v5.3.3 에서 버그 수정됨.
+https://stackoverflow.com/questions/71832720/link-tag-inside-browserrouter-changes-only-the-url-but-doesnt-render-the-compo
