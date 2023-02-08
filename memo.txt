@@ -79,6 +79,9 @@ import { getFirestore } from "firebase/firestore";
 export const dbService = getFirestore();
 
 [6-1] //collection, addDoc
+
+addDoc : create 담당
+
 https://firebase.google.com/docs/reference/js/firestore_.md?authuser=0&hl=ko#adddoc
 import { addDoc, collection } from 'firebase/firestore';
 
@@ -88,6 +91,16 @@ const docRef = await addDoc(collection(dbService, "nweets"), {
     createdAt: Date.now(),
     });
 console.log("Document written with ID: ", docRef.id);
+
+[6-2]querysnapshot , getDocs
+querysnapshot : 
+    - properties : docs, metadata, size, empty, query 
+    - methods : docChanges ,forEach, isEqual
+
+getDocs : read 담당
+
+import { getDocs, query } from 'firebase/firestore';
+https://firebase.google.com/docs/reference/js/firestore_.querysnapshot?hl=ko&authuser=0
 
 
 
