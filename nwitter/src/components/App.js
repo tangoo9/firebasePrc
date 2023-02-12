@@ -12,23 +12,27 @@ function App() {
 	
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+	const [userObj, setUserObj] = useState(null);
+
+
 	useEffect(()=>{
 		const auth = getAuth();
 		onAuthStateChanged(auth, (user) => {
 			if(user){
 				setIsLoggedIn(true);
+				setUserObj(user)
 			}else{
 				setIsLoggedIn(false);
 			}
 			setInit(true);
-			console.log("유저 : ", user)
+			// console.log("유저 : ", user)
 		});
 	},[])
 
 	
 	return ( 
 		< >
-			{init ? <AppRouter isLoggedIn={isLoggedIn}/> : "로딩중.."}
+			{init ? <AppRouter isLoggedIn={isLoggedIn} userObj={userObj}/> : "로딩중.."}
 			<footer>&copy; Nwitter {new Date().getFullYear()}</footer> 
 		</> 
 	);

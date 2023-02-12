@@ -103,6 +103,9 @@ import { getDocs, query } from 'firebase/firestore';
 https://firebase.google.com/docs/reference/js/firestore_.querysnapshot?hl=ko&authuser=0
 
 
+★★querySnapshot 예제문서★★
+https://firebase.google.com/docs/firestore/query-data/listen?authuser=0&hl=ko#web-version-9_3
+
 
 [bug]
 router 변경 이벤트시 화면이 실시간으로 바뀌지 않는문제 (router 5.3.0, react18간의 호환문제) 
