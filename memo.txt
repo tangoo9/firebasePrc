@@ -107,6 +107,19 @@ https://firebase.google.com/docs/reference/js/firestore_.querysnapshot?hl=ko&aut
 https://firebase.google.com/docs/firestore/query-data/listen?authuser=0&hl=ko#web-version-9_3
 
 
+[6-3] deleteDoc, updateDoc
+import { doc, deleteDoc, updateDoc }from"firebase/firestore";
+
+//아래와 같이 리터럴 호출
+const nweetDocRef = doc(dbService, "nweets", `${nweetObj.id}`)
+
+//delete
+await deleteDoc(nweetDocRef)
+
+//update
+await updateDoc(nweetDocRef,{text :newNweet})
+
+
 [bug]
 router 변경 이벤트시 화면이 실시간으로 바뀌지 않는문제 (router 5.3.0, react18간의 호환문제) 
 react-router-dom => v5.3.3 에서 버그 수정됨.
