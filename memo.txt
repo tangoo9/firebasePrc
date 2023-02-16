@@ -135,6 +135,11 @@ await deleteDoc(nweetDocRef)
 await updateDoc(nweetDocRef,{text :newNweet})
 
 
+[6-4] Image 업로드
+//FileReader API...
+https://developer.mozilla.org/en-US/docs/Web/API/FileReader
+
+
 [bug]
 router 변경 이벤트시 화면이 실시간으로 바뀌지 않는문제 (router 5.3.0, react18간의 호환문제) 
 react-router-dom => v5.3.3 에서 버그 수정됨.
