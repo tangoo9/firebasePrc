@@ -36,7 +36,8 @@ const Nweet = ({nweetObj, isOwner}) => {
         <>
         {isEditing 
             ? (<>
-                <form onSubmit={onSubmit}>
+                {isOwner && (
+                <><form onSubmit={onSubmit}>
                     <input type="text" 
                             placeholder='"Edit this'
                             value={newNweet} 
@@ -44,7 +45,8 @@ const Nweet = ({nweetObj, isOwner}) => {
                             required/>      
                     <input type="submit" value="수정하기"/>
                 </form>
-                <button onClick={toggleEditing}>Cancel</button> 
+                <button onClick={toggleEditing}>Cancel</button>
+                </>)}
             </>
             )
             : (
