@@ -139,6 +139,29 @@ await updateDoc(nweetDocRef,{text :newNweet})
 //FileReader API...
 https://developer.mozilla.org/en-US/docs/Web/API/FileReader
 
+//firebase Storage
+import { getStorage } from "firebase/storage";
+...
+import { ref, uploadString } from 'firebase/storage';
+...
+const fileRef = ref(storageService, `${userObj.uid}/${v4()}`);
+const response = await uploadString(fileRef, imageFile, "data_url");
+
+
+//Storage Rules 탭 설정 ... read,write 부분 기본적으로 if false인데 그럼 동작안함.
+rules_version = '2';
+service firebase.storage {
+    match /b/{bucket}/o {
+        match /{allPaths=**} {
+        allow read, write: if request.auth != null;
+        }
+    }
+}
+
+
+
+[uuid] 랜덤 unique id를 생성해줌
+https://www.npmjs.com/package/uuid
 
 [bug]
 router 변경 이벤트시 화면이 실시간으로 바뀌지 않는문제 (router 5.3.0, react18간의 호환문제) 

@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
 
 import { addDoc, collection, getDocs, onSnapshot, orderBy, query } from 'firebase/firestore';
-import { dbService } from '../fbase';
+import { dbService, storageService } from '../fbase';
 import Nweet from '../components/Nweet';
+import { v4 as uuidv4, v4 } from 'uuid';
+import { ref, uploadString } from 'firebase/storage';
 
 const Home = ({userObj}) => {
 	
@@ -27,17 +29,24 @@ const Home = ({userObj}) => {
 
 	const onSubmit = async (e) =>{
 		e.preventDefault();
-		try{
-			const docRef = await addDoc(collection(dbService, "nweets"), {
-				text:nweet,
-				createdAt: Date.now(),
-				creatorId: userObj.uid,
-				});
-			console.log("Document written with ID: ", docRef.id);
-		}catch(error){
-			console.log(error)
-		}
-		setNweet("")
+
+		// userObj.uid/${이부분은 파일명}
+		const fileRef = ref(storageService, `${userObj.uid}/${v4()}`);
+		const response = await uploadString(fileRef, imageFile, "data_url");
+		console.log(response);
+		
+		// try{
+		// 	const docRef = await addDoc(collection(dbService, "nweets"), {
+		// 		text:nweet,
+		// 		createdAt: Date.now(),
+		// 		creatorId: userObj.uid,
+		// 		});
+		// 	console.log("Document written with ID: ", docRef.id);
+		// }catch(error){
+		// 	console.log(error)
+		// }
+		// setNweet("")
+
 	}
 
 	const onChange = (e) =>{
@@ -62,6 +71,9 @@ const Home = ({userObj}) => {
 	const onRemoveImage =()=>{
 		setImageFile(null)
 	}
+
+
+	
 
 	return (
 		<>
