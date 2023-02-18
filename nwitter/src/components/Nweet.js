@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { dbService } from '../fbase'
+import { dbService, storageService } from '../fbase'
 import { doc, deleteDoc, updateDoc} from 'firebase/firestore'
+import { deleteObject, ref } from 'firebase/storage';
 
 
 const Nweet = ({nweetObj, isOwner}) => {
@@ -8,13 +9,21 @@ const Nweet = ({nweetObj, isOwner}) => {
     const [newNweet, setNewNweet] =useState(nweetObj.text);
 
     const nweetDocRef = doc(dbService, "nweets", `${nweetObj.id}`)
+    const AttachmentRef = ref(storageService, nweetObj.AttachmentUrl);
 
     const onDeleteClick = async() =>{
         // alert랑 같네 confirm
 
         const ok = window.confirm("정말로 게시물을 삭제하시겠습니까?")
         if(ok){
-            await deleteDoc(nweetDocRef)
+            try{
+                await deleteDoc(nweetDocRef)
+                if(nweetObj.AttachmentUrl !==""){
+                    await deleteObject(AttachmentRef);
+                }
+            }catch(error){
+                console.log(error)
+            }
         }
     }
     
@@ -52,6 +61,9 @@ const Nweet = ({nweetObj, isOwner}) => {
             : (
                 <>
                     <h4>{nweetObj.text}</h4>
+                    {nweetObj.AttachmentUrl && (
+                        <img src={nweetObj.AttachmentUrl} alt="" width="50px" height="50px"/>
+                    )}
                     {isOwner && (
                         <>
                             <button onClick={onDeleteClick}>Delete Nweet</button>
