@@ -10,7 +10,8 @@ import firebase from 'firebase/compat/app'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <App />
+  // StrictMode 2번 렌더하는 이슈때문에 임시방편
+  // <React.StrictMode>
+  // </React.StrictMode>
 );

@@ -19,6 +19,7 @@ function App() {
 			if(user){
 				setUserObj(user)
 			}else{
+				alert("로그인 에러!!")
 			}
 			setInit(true);
 			// console.log("유저 : ", user)

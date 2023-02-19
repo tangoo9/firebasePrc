@@ -6,6 +6,7 @@ import Nweet from '../components/Nweet';
 import { v4 as uuidv4, v4 } from 'uuid';
 import { getDownloadURL, ref, uploadString } from 'firebase/storage';
 
+
 const Home = ({userObj}) => {
 	
 	const [nweet, setNweet ] = useState('');
@@ -47,7 +48,7 @@ const Home = ({userObj}) => {
 			creatorId: userObj.uid,
 			AttachmentUrl,
 		}
-
+		console.log(Date.now())
 		try{
 			const docRef = await addDoc(collection(dbService, "nweets"),  nweetPost);
 			console.log("Document written with ID: ", docRef.id);
