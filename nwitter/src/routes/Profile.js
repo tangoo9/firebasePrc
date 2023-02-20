@@ -6,19 +6,20 @@ import { useHistory } from 'react-router-dom'
 
 import { authService, dbService } from '../fbase'
 
-const Profile = ({userObj}) => {
+const Profile = ({userObj, refreshUser}) => {
 	const [newDisplayName, setNewDisplayName] = useState(userObj.displayName);
 	const history = useHistory();
 	const onLogOut = () =>{
 		authService.signOut();
 		history.push("/")
+		refreshUser();
 	}
 
 	const getMyNweets = async () => {
 			const q = query(
 			collection(dbService, "nweets"),
 			where("creatorId", "==", userObj.uid),
-			// orderBy("createAt","desc")
+			orderBy("createdAt","desc")
 			);
 			const querySnapshot = await getDocs(q);
 			querySnapshot.forEach((doc) => {
@@ -34,8 +35,9 @@ const Profile = ({userObj}) => {
 		e.preventDefault();
 		if(userObj.displayName !== newDisplayName){
 			// console.log(updateProfile)
-			await updateProfile(userObj, {displayName : newDisplayName})
+			await updateProfile(authService.currentUser, {displayName : newDisplayName})
 		}
+		refreshUser()
 	}
 	const onChange = (e)=>{
 		const {target:{value}} = e;
