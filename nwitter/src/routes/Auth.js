@@ -1,7 +1,15 @@
 
-import { authService } from '../fbase';
 import React, { useState } from 'react'
+import { authService } from '../fbase';
 import { createUserWithEmailAndPassword, GithubAuthProvider, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faTwitter,
+  faGoogle,
+  faGithub,
+} from "@fortawesome/free-brands-svg-icons";
+
 import AuthFoam from '../components/AuthFoam';
 
 
@@ -27,10 +35,23 @@ const Auth = () => {
 
 	return (
 		<>
-			<div>Auth</div>
-			<AuthFoam/>
-			<button onClick={onSocialClick} name="google"> continue with google</button>
-			<button onClick={onSocialClick} name="github"> continue with github</button>
+			<div className="authContainer">
+				<FontAwesomeIcon
+					icon={faTwitter}
+					color={"#04AAFF"}
+					size="3x"
+					style={{ marginBottom: 30 }}
+				/>
+				<AuthFoam/>
+				<div className="authBtns">
+					<button onClick={onSocialClick} name="google" className="authBtn">
+						Continue with Google <FontAwesomeIcon icon={faGoogle} />
+					</button>
+					<button onClick={onSocialClick} name="github" className="authBtn">
+						Continue with Github <FontAwesomeIcon icon={faGithub} />
+					</button>
+				</div>
+			</div>
 		</>
 	)
 }

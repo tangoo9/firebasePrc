@@ -43,13 +43,28 @@ const AuthFoam = () => {
 
         return (
             <>
-                <form onSubmit={onSubmit}>
-                    <input name='email' type="email" placeholder='email' onChange={onChange} required></input>
-                    <input name='password' type="password" placeholder='password' onChange={onChange} required></input>
-                    <input type="submit" value={newAccount ? "Create Account" : "Log In"}></input>
-                    {error}
+                <form onSubmit={onSubmit} className="container">
+                    <input 
+                        name='email' 
+                        type="email" 
+                        placeholder='email' 
+                        onChange={onChange} 
+                        className="authInput" 
+                        required></input>
+                    <input 
+                        name='password' 
+                        type="password" 
+                        placeholder='password' 
+                        onChange={onChange} 
+                        className="authInput" 
+                        required></input>
+                    <input 
+                        type="submit" 
+                        className="authInput authSubmit" 
+                        value={newAccount ? "Create Account" : "Log In"}/>
+                    {error && <span className="authError">{error}</span>}
                 </form>
-                <button onClick={toggleAccount}>{newAccount ? "Log In" : "Create Account"}</button>
+                <button onClick={toggleAccount} className="authSwitch">{newAccount ? "Log In" : "Create Account"}</button>
             </>
         )
     }

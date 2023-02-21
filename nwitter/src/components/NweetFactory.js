@@ -3,6 +3,8 @@ import { getDownloadURL, ref, uploadString } from 'firebase/storage';
 import React, { useState } from 'react'
 import { v4 } from 'uuid';
 import { dbService, storageService } from '../fbase';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 const NweetFactory = ({userObj}) => {
 
@@ -11,6 +13,9 @@ const NweetFactory = ({userObj}) => {
 
 
     const onSubmit = async (e) =>{
+		if (nweet === "") {
+			return;
+		}
 		e.preventDefault();
 
 		let AttachmentUrl ="";
@@ -66,15 +71,41 @@ const NweetFactory = ({userObj}) => {
 	}
 
     return (
-        <form onSubmit={onSubmit}>
-        <input type="text" onChange={onChange} placeholder="what's on your mind?" maxLength={120}></input>
-        <input type="file" accept='image/*' onChange={onFileChange}></input>
-        <input type="submit" value="Nweet"></input>
+        <form onSubmit={onSubmit} className="factoryForm">
+			<div className="factoryInput__container">
+				<input 
+					className="factoryInput__input" 
+					type="text" 
+					value={nweet}
+					onChange={onChange} 
+					placeholder="what's on your mind?" 
+					maxLength={120}/>
+				<input type="submit" value="&rarr;" className="factoryInput__arrow" />
+			</div>
+				<label htmlFor="attach-file" className="factoryInput__label">
+					<span>Add photos</span>
+					<FontAwesomeIcon icon={faPlus} />
+				</label>
+				<input
+					id="attach-file"
+					type="file"
+					accept="image/*"
+					onChange={onFileChange}
+					style={{
+					opacity: 0,
+					}}
+				/>
         {attachment &&   (
-            <>
-                <img src={attachment} alt="none" width="50px" height="50px"/>
-                <button onClick={onRemoveImage}>선택 취소</button>
-            </>
+            <div className="factoryForm__attachment">
+                <img src={attachment} alt="none"             
+					style={{backgroundImage: attachment}}/>
+                <button className="factoryForm__clear" onClick={onRemoveImage}>
+					<span>
+						선택 취소
+					</span>
+					<FontAwesomeIcon icon={faTimes} />
+				</button>
+            </div>
         )}
     </form>
     )

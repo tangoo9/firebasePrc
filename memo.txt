@@ -229,7 +229,10 @@ import { updateProfile } from 'firebase/auth';
 //userObj는 auth관련 props, newDisplayName은 그냥 state 변수
 await updateProfile(userObj, {displayName : newDisplayName})
 
-
+[8]css
+- input 태그
+value="&rarr;" 
+오른쪽 화살표 아이콘으로 보여짐, &l , &u, &d 가능
 
 [uuid] 랜덤 unique id를 생성해줌
 https://www.npmjs.com/package/uuid

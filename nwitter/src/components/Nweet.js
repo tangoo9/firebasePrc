@@ -2,6 +2,9 @@ import React, { useState } from 'react'
 import { dbService, storageService } from '../fbase'
 import { doc, deleteDoc, updateDoc} from 'firebase/firestore'
 import { deleteObject, ref } from 'firebase/storage';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
+
 import moment from 'moment'
 
 moment.locale('ko')
@@ -44,38 +47,40 @@ const Nweet = ({nweetObj, isOwner}) => {
         setNewNweet(value)
     }
     return (
-        <>
+        <div className="nweet">
         {isEditing 
             ? (<>
                 {isOwner && (
-                <><form onSubmit={onSubmit}>
-                    <input type="text" 
-                            placeholder='"Edit this'
-                            value={newNweet} 
-                            onChange={onChange}
-                            required/>      
-                    <input type="submit" value="수정하기"/>
-                </form>
-                <button onClick={toggleEditing}>Cancel</button>
+                <>
+                    <form onSubmit={onSubmit} className="container nweetEdit">
+                        <input 
+                                className="formInput"
+                                type="text" 
+                                placeholder='"Edit this'
+                                value={newNweet} 
+                                onChange={onChange}
+                                required
+                                autoFocus/>      
+                        <input type="submit" value="수정하기" className="formBtn"/>
+                    </form>
+                    <button onClick={toggleEditing} className="formBtn cancelBtn">Cancel</button>
                 </>)}
             </>
             )
             : (
                 <>
                     <h4>{nweetObj.text}</h4>
-                    {nweetObj.AttachmentUrl && (
-                        <img src={nweetObj.AttachmentUrl} alt="" width="50px" height="50px"/>
-                    )}
+                    {nweetObj.AttachmentUrl && <img src={nweetObj.AttachmentUrl} alt="" />}
                     {isOwner && (
-                        <>
-                            <button onClick={onDeleteClick}>Delete Nweet</button>
-                            <button onClick={toggleEditing}>Edit Nweet</button>
-                        </>  
+                        <div class="nweet__actions">
+                            <button onClick={onDeleteClick}><FontAwesomeIcon icon={faTrash} /></button>
+                            <button onClick={toggleEditing}><FontAwesomeIcon icon={faPencilAlt} /></button>
+                        </div>  
                     )}
                 </>
             )
         }
-        </>
+        </div>
     )
 }
 

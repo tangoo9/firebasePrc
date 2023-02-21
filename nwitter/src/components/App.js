@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import AppRouter from "./Router";
 import {authService} from '../fbase';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { useHistory } from "react-router-dom";
 
 
 function App() {
@@ -55,7 +54,7 @@ function App() {
 				/> 
 			: 
 			"로딩중.."}
-			<footer>&copy; Nwitter {new Date().getFullYear()}</footer> 
+			<footer className="footer">&copy; Nwitter {new Date().getFullYear()}</footer> 
 		</> 
 	);
 }

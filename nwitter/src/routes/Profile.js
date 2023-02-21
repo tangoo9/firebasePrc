@@ -12,7 +12,6 @@ const Profile = ({userObj, refreshUser}) => {
 	const onLogOut = () =>{
 		authService.signOut();
 		history.push("/")
-		refreshUser();
 	}
 
 	const getMyNweets = async () => {
@@ -29,7 +28,7 @@ const Profile = ({userObj, refreshUser}) => {
 
 	useEffect(()=>{
 		getMyNweets();
-	},[])
+	})
 
 	const onSubmit = async(e) =>{
 		e.preventDefault();
@@ -45,18 +44,25 @@ const Profile = ({userObj, refreshUser}) => {
 	}
 
 	return (
-		<>
-		<form onSubmit={onSubmit}>
-			<input 
-				type="text" 
-				placeholder='Display name'
-				onChange={onChange}
-				value={newDisplayName}
-				></input>
-			<input type="submit" value="Update Profile"></input>
-		</form>
-			<button onClick={onLogOut}>Log out</button>
-		</>
+		<div className="container" >
+			<form onSubmit={onSubmit} className="profileForm">
+				<input 
+					type="text" 
+					placeholder='Display name'
+					onChange={onChange}
+					value={newDisplayName}
+					autoFocus
+					></input>
+				<input           
+					type="submit"
+					value="Update Profile"
+					className="formBtn"
+					style={{
+						marginTop: 10,
+					}}></input>
+			</form>
+			<button onClick={onLogOut} className="formBtn cancelBtn logOut">Log out</button>
+		</div>
 	)
 }
 
