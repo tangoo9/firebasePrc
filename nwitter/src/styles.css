@@ -18,6 +18,10 @@ font-size: 14px;
 color: white;
 }
 
+body :hover{
+	background-color: white;
+}
+
 button {
 background-color: white;
 color: black;
@@ -54,7 +58,7 @@ background-color: white;
 color: black;
 }
 
-.formBtn {
+.formBtn{
 cursor: pointer;
 width: 100%;
 padding: 7px 20px;

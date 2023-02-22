@@ -56,7 +56,8 @@ const AuthFoam = () => {
                         type="password" 
                         placeholder='password' 
                         onChange={onChange} 
-                        className="authInput" 
+                        className="authInput"
+                        autoComplete
                         required></input>
                     <input 
                         type="submit" 

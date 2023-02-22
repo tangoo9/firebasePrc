@@ -22,7 +22,7 @@ const Profile = ({userObj, refreshUser}) => {
 			);
 			const querySnapshot = await getDocs(q);
 			querySnapshot.forEach((doc) => {
-			console.log(doc.id, " => ", doc.data()); 
+			// console.log(doc.id, " => ", doc.data()); 
 			});
 		};
 

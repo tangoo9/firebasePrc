@@ -234,8 +234,51 @@ await updateProfile(userObj, {displayName : newDisplayName})
 value="&rarr;" 
 오른쪽 화살표 아이콘으로 보여짐, &l , &u, &d 가능
 
+[Deploy]
+- Github Pages 사용하기
+    1.package.json에 아래줄 추가
+        "homepage": "https://Silku.github.io/firebasePrc"
+        
+        github repo랑 같아야함. 아래 명령어로 체크 가능.
+        $git remote -v
+
+    2. npm i gh-pages  
+        package.json , script에 추가
+        "deploy" : "gh-pages -d build"
+        -d는 directory 뜻
+
+    3. "predeploy" : "npm run build",
+        "deploy" : "gh-pages -d build"
+        $npm run predeploy하면 build폴더를 생성해주고, 
+        $npm run deploy하면 생성된 build 폴더를 배포실행
+
 [uuid] 랜덤 unique id를 생성해줌
 https://www.npmjs.com/package/uuid
+
+
+[github pages에 배포시 auth issues]
+아래와 같은 에러를 마주하게됨. 아래의 경로처럼 파이어베이스 콘솔에서 해결가능.
+iframe.js:299 Info: The current domain is not authorized for OAuth operations. This will prevent signInWithPopup, signInWithRedirect, linkWithPopup and linkWithRedirect from working. Add your domain (silku.github.io) to the OAuth redirect domains list in the Firebase console -> Authentication -> Settings -> Authorized domains tab.
+
+https://console.cloud.google.com/apis/credentials
+
+
+[firebase security rules]
+// rules documentation
+https://firebase.google.com/docs/rules/get-started?authuser=0&hl=ko
+//기본 보안 규칙 설정 방법
+https://firebase.google.com/docs/rules/basics?authuser=0&hl=ko 
+
+[api security]
+https://console.cloud.google.com/apis/credentials
+
+ - browser key
+어플리케이션 제한사항을 설정할수 있다. 웹,android, ios에서만 동작하게끔 등
+ex)
+silku.github.io/firebasePrc/*
+localhost
+
+
 
 [bug]
 router 변경 이벤트시 화면이 실시간으로 바뀌지 않는문제 (router 5.3.0, react18간의 호환문제) 
